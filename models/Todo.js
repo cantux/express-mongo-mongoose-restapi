@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const TodoSchema = new Schema({
   id: Schema.Types.ObjectId,
@@ -8,8 +8,16 @@ const TodoSchema = new Schema({
   status: {
     type: String,
     enum: ['Completed', 'Removed', 'Future'],
-    required: [true, 'missing status']
+    required: [false, 'missing status']
   }
 });
 
-module.exports = mongoose.model('Todo', TodoSchema);
+TodoSchema.pre('save', function (next) {
+  console.log('I am about to save thee');
+  next();
+});
+
+module.exports = {
+  schema: TodoSchema,
+  model: mongoose.model('Todo', TodoSchema)
+};
