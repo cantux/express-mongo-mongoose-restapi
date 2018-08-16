@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 
 var morgan = require('morgan');
 
+// hide powered by express
+app.disable('x-powered-by');
+
 // cors
 const cors = require('cors');
 app.use(cors());

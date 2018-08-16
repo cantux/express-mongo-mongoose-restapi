@@ -15,6 +15,7 @@ function userRouterCreator () {
   router.get('/',
     function (req, res) {
       userModel.model.find({}, function(err, user) {
+          console.log(user);
         return res.send(user);
       });
     }
