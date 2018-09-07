@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 //Set up default mongoose connection
-const mongoDB = 'mongodb://localhost/trial';
+const mongoDB = 'mongodb://mongo';
 mongoose.connect(mongoDB);
 
 // Get Mongoose to use the global promise library
