@@ -1,4 +1,7 @@
 var express = require('express');
+
+const todoRouter = require('./todos');
+
 var router = express.Router();
 
 let userModel = require('../models/User');
@@ -30,9 +33,9 @@ function userRouterCreator () {
     }
   );
 
-  router.post('/:name',
+  router.post('/',
     function (req, res) {
-      userModel.model.create({name: req.params.name}, function(err, user) {
+      userModel.model.create({name: req.body.name}, function(err, user) {
         return res.send(user);
       });
     }
@@ -60,6 +63,8 @@ function userRouterCreator () {
       });
     }
   );
+
+  router.use('/:id/todos', todoRouter);
 
   return router;
 }

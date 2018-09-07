@@ -1,17 +1,27 @@
-import { ajax } from 'rxjs/observable/dom/ajax';
+import fetch from 'isomorphic-fetch';
 
-import { UserModel } from '../models/User';
+import { NewUserModel } from '../models/User';
 
 export default class UserApi {
   public static getUsers = (name: string) => {
-    return ajax.getJSON<UserModel[]>(`http://localhost:3000/api/users/` + name);
+    return fetch(`http://localhost:3000/v1/users/` + name);
   }
 
-  public static postUser = (name: string) => {
-    return ajax.post(`http://localhost:3000/api/users/` + name);
+  public static postUser = (data: NewUserModel) => {
+    console.log('data: ', data);
+    return fetch(`http://localhost:3000/v1/users`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    });
   }
 
   public static deleteUser = (id: string) => {
-    return ajax.delete(`http://localhost:3000/api/users/` + id);
+    return fetch(`http://localhost:3000/v1/users/` + id, {
+      method: 'DELETE'
+    });
   }
 }

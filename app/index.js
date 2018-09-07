@@ -30,7 +30,7 @@ app.use(myLogger);
 app.get('/', (req, res) => res.send('Hello World!'));
 
 var apiRouter = require('./api');
-app.use('/api', apiRouter);
+app.use('/v1', apiRouter);
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'));
 

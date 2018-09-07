@@ -6,3 +6,7 @@ export interface UserModel {
   todos: TodoModel[];
   friends: UserModel[];
 }
+
+export interface NewUserModel {
+  name: string;
+}

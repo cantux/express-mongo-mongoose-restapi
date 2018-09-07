@@ -33,19 +33,27 @@ export class UserList extends React.Component<{}, UserListStates> {
   }
 
   onPostUsersClicked = () => {
-    UserApi.postUser(this.state.postedUserName).subscribe(
-      (user) => this.setState({postedUser: user.response}));
+    UserApi.postUser({name: this.state.postedUserName})
+      .then((response) => (response.json())
+        .then((user) => {
+            this.setState(function(prevState: UserListStates, props: {}) {
+              return {
+                postedUser: user
+              };
+            });
+          }
+        )
+      );
   }
 
   onGetUsersClicked = () => {
-    UserApi.getUsers(this.state.name).subscribe(
-      (users) => this.setState({users: users}));
+    UserApi.getUsers(this.state.name).then(
+      (response) => (response.json()).then((users) => this.setState({users})));
   }
 
   onDeleteUsersClicked = (id: string) => {
-    UserApi.deleteUser(id).subscribe((ajaxResponse) => {
-      this.setState((oldState) => ({users: ajaxResponse.response}));
-    });
+    UserApi.deleteUser(id).then(
+      (response) => (response.json()).then((users) => this.setState({users})));
   }
 
   render() {
